@@ -58,7 +58,7 @@ with DAG("dag_povarov_ram_location",
         task_id='create_table',
         postgres_conn_id='conn_greenplum',
         sql="""
-            CREATE TABLE IF NOT EXISTS public.k_povarov_11_ram_location
+            CREATE TABLE IF NOT EXISTS public.ram_top3_location
             (
                 id integer PRIMARY KEY,
                 name varchar,
@@ -76,8 +76,8 @@ with DAG("dag_povarov_ram_location",
         task_id='insert_values',
         postgres_conn_id='conn_greenplum',
         sql = [
-            'TRUNCATE TABLE  k_povarov_11_ram_location',
-            'INSERT INTO k_povarov_11_ram_location VALUES {{ ti.xcom_pull(task_ids="get_location") }}',
+            'TRUNCATE TABLE  ram_top3_location',
+            'INSERT INTO ram_top3_location VALUES {{ ti.xcom_pull(task_ids="get_location") }}',
         ],
         autocommit=True
     )
